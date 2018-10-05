@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Validation from './Validation/ValidationComponent';
+import CharComp from './Validation/CharComponent';
 
 class App extends Component {
+
+    state = {
+        textVal : ""
+    }
+    calculateLength = (event) => {
+    this.setState({ textVal : event.target.value })
+
+    }
+
   render() {
+
+        let chararr = "";
+        if (this.state.textVal) {
+            console.log(this.state.textVal)
+            chararr = ( <div> {
+                this.state.textVal.map((p, index) => {
+                  return  <CharComp inletter = {p} />
+                })
+            } </div>)
+            }
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="App">
+          Enter your input <input type="text" onChange={(event) => this.calculateLength( event)}/>
+            <p>Your Input Length : {this.state.length}</p>
+            <Validation textVal={this.state.textVal}/>
+            {chararr}
+
       </div>
     );
   }
